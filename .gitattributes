@@ -1,2 +1,4 @@
 # Auto detect text files and perform LF normalization
+git lfs track "*.psd"
+git add .gitattributes
 * text=auto
