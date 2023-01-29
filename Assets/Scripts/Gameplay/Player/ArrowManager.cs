@@ -3,13 +3,14 @@ using UnityEngine;
 public class ArrowManager : MonoBehaviour
 {
     Quaternion startRotation, targetRotation0, targetRotation1;
-    float rotationTime, currentTime, t;
+    public float rotationTime;
+    float currentTime, t;
     bool rotateTo0;
 
     void Awake()
     {
-        targetRotation0 = Quaternion.Euler(0,0,45);
-        targetRotation1 = Quaternion.Euler(0,0,-45);
+        targetRotation0 = Quaternion.Euler(0,0,155);
+        targetRotation1 = Quaternion.Euler(0,0,25);
         startRotation = transform.rotation;
 
         rotationTime = 1f;
