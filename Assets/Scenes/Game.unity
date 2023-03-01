@@ -831,7 +831,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1253093144}
   m_FillRect: {fileID: 763621557}
   m_HandleRect: {fileID: 1253093142}
@@ -1253,13 +1253,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1133476414}
-  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.66785693, y: -0.00797528, z: 0.09069985}
-  m_LocalScale: {x: 0.39877048, y: 0.44523782, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.17379546, y: -3.8828902, z: -0.012493424}
+  m_LocalScale: {x: 0.3987706, y: 0.385788, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1459742520}
-  m_RootOrder: 0
+  m_Father: {fileID: 1186533791}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1133476417
 Animator:
@@ -1330,8 +1330,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ab8c6dceb73f174bbaf14cedf7fde68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerSlider: {fileID: 574472394}
+  speed: 0
+  score: 0
+  power: 0
+  rb: {fileID: 1133476418}
   arrow: {fileID: 1459742520}
+  ready: 0
+  LostScreen: {fileID: 0}
 --- !u!1 &1186533790
 GameObject:
   m_ObjectHideFlags: 0
@@ -1362,6 +1367,7 @@ Transform:
   m_Children:
   - {fileID: 218198041}
   - {fileID: 1459742520}
+  - {fileID: 1133476416}
   m_Father: {fileID: 1840546024}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1930,8 +1936,7 @@ Transform:
   m_LocalPosition: {x: 0.16582012, y: -3.3042083, z: -0.103193276}
   m_LocalScale: {x: 0.866476, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1133476416}
+  m_Children: []
   m_Father: {fileID: 1186533791}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
@@ -1948,6 +1953,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationTime: 1
+  powerSlider: {fileID: 574472394}
+  ball: {fileID: 1133476420}
 --- !u!212 &1459742523
 SpriteRenderer:
   m_ObjectHideFlags: 0

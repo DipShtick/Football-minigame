@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ArrowManager : MonoBehaviour
 {
@@ -19,6 +21,7 @@ public class ArrowManager : MonoBehaviour
 
     void Update()
     {
+        // For the rotation
         currentTime += Time.deltaTime;
         t = currentTime / rotationTime;
         
@@ -49,10 +52,58 @@ public class ArrowManager : MonoBehaviour
                 currentTime = 0f;
             }
         }
+
+        // For input
+        if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+        {
+            PowerBureaucrat();
+        }
+        else if(Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(1) || Input.GetMouseButtonUp(0))
+        {
+            Launch();
+        }
+        else if(Input.GetKey(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 
-    void ManipulateRotationSpeed()
+    bool maxed = false;
+    int power, maxPower = 50, minPower = 1;
+    void PowerBureaucrat()
     {
+        if(power == maxPower)
+        {
+            maxed = true;
+            power--;
+        }
+        else if(maxed)
+        {
+            power--;
+        }
+        else if(power == minPower && maxed)
+        {
+            Launch();
+            maxed = false;
+        }
+        else
+        {
+            power++;
+        }
         
+        CalculatePower();
+    }
+
+    public Slider powerSlider;
+    void CalculatePower()
+    {
+        powerSlider.value = power/maxPower;
+    }
+
+    public BallComp ball;
+    void Launch()
+    {
+        power = ball.power;
+        ball.ready =! ball.ready;
     }
 }

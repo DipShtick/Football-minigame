@@ -1,62 +1,32 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 using UnityEngine.Rendering.Universal;
 
 public class BallComp : MonoBehaviour
 {
-    float speed, power;
-    int score, minPower, maxPower;
-
-    public Slider powerSlider;
+    public float speed;
+    public int score, power;
+    int Highscore;
 
     void Awake()
     {
-        maxPower = 10;
-        rb = GetComponent<Rigidbody2D>();
+        LostScreen.SetActive(false);
+        PlayerPrefs.GetInt("Record", Highscore);
     }
 
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
-        {
-            PowerBureaucrat();
-        }
-        else if(Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(1) || Input.GetMouseButtonUp(0))
-        {
-            Launch();
-        }
-    }
-
-    bool maxed;
-    void PowerBureaucrat()
-    {
-        if(power == maxPower)
-        {
-            maxed = true;
-            power--;
-        }
-        else if(power == minPower && maxed)
-        {
-            Launch();
-        }
-        else
-        {
-            power++;
-        }
-    }
-
-    void CalculatePower()
-    {
-        powerSlider.value = power/maxPower;
-    }
-
-    Rigidbody2D rb;
+    public Rigidbody2D rb;
     public Transform arrow;
-    void Launch()
+
+    public bool ready = false;
+    void FixedUpdate()
     {
-        rb.velocity = Time.deltaTime * arrow.rotation.z * rb.velocity * power;
-    }
+        if(ready)
+        {
+            rb.velocity = Vector3.forward * speed * power * Time.deltaTime;
+            ready = !ready;
+        }
+    }    
 
     bool scored;
     Collider2D colinfo;
@@ -73,24 +43,59 @@ public class BallComp : MonoBehaviour
             scored = false;
         }
 
-
         ScoreBureaucrat();
     }
 
+    bool lost = true;
     void ScoreBureaucrat()
     {
         if(scored == true)
         {
             score++;
+
+            if(score > Highscore)
+            {
+                HighscoreBroken();
+            }
         }
         else
         {
-            scored = false;
+            score--;
         }
+
+        if(score <= -1)
+        {
+            YouLose();
+        }
+
+        TextBureaucrat();
+        scored = false;
     }
 
+    TMP_Text _scoreText, _highscoreText;
     void TextBureaucrat()
     {
+        _scoreText.text = score.ToString();
+    }
 
+    void HighscoreBroken()
+    {
+        PlayerPrefs.SetInt("Record", score);
+        
+        _highscoreText.text = Highscore.ToString();
+    }
+
+    void YouScored()
+    {
+        rb.velocity = rb.velocity * 0;
+
+
+    }
+
+    public GameObject LostScreen;
+    void YouLose()
+    {
+        Time.timeScale = 0;
+        LostScreen.SetActive(true);        
     }
 }
